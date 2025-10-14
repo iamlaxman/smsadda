@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Settings - SMSADDA</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Manage your cookie preferences for SMSADDA - A modern real-time chat application.">
+  <meta name="keywords" content="SMSADDA, cookie settings, privacy preferences, cookie management">
+  <meta name="author" content="SMSADDA Team">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.ibb.co/fGvbfvYZ/1000017091.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  
+  <style>
+    :root {
+      --indigo: #4F46E5;
+      --indigo-light: #818cf8;
+      --gray-50: #f9fafb;
+      --gray-800: #1f2937;
+    }
+    
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      scroll-behavior: smooth;
+    }
+    
+    .max-width-container {
+      max-width: 1280px;
+    }
+    
+    .rounded-2xl {
+      border-radius: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--indigo);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #4338ca;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.25);
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    }
+    
+    .hero-gradient-bg {
+      background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+    }
+    
+    /* Toggle switch styling */
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--indigo);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .py-20 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body class="hero-gradient-bg">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <a href="index.html" class="flex items-center space-x-2">
+            <img src="https://i.ibb.co/fGvbfvYZ/1000017091.png" alt="SMSADDA Logo" class="h-8 w-8 sm:h-10 sm:w-10">
+            <span class="text-lg sm:text-xl font-bold text-indigo-600">SMS<span class="text-gray-800">ADDA</span></span>
+          </a>
+        </div>
+        <div>
+          <a href="index.html" class="text-gray-600 hover:text-indigo-600 font-medium text-sm lg:text-base">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cookie Settings Section -->
+  <section class="py-12 md:py-16">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 animate__animated animate__fadeInDown">Cookie Settings</h1>
+        <p class="text-gray-600 mb-8 animate__animated animate__fadeInUp">Manage your cookie preferences for a personalized experience.</p>
+        
+        <div class="bg-white rounded-2xl shadow-sm p-6 md:p-8">
+          <div class="mb-8">
+            <p class="text-gray-600">
+              We use cookies to help us understand how you use our Service and to improve your experience. You can choose which cookies you want to allow by adjusting the settings below. For more information about how we use cookies, please see our <a href="cookie_policy.html" class="text-indigo-600 hover:underline">Cookie Policy</a>.
+            </p>
+          </div>
+          
+          <div class="space-y-6">
+            <!-- Essential Cookies -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div class="mb-3 sm:mb-0">
+                <h3 class="font-bold text-gray-900">Essential Cookies</h3>
+                <p class="text-gray-600 text-sm mt-1">These cookies are necessary for the website to function and cannot be switched off.</p>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-3 text-gray-600 text-sm">Always Active</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="essentialCookies" checked disabled>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Performance Cookies -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div class="mb-3 sm:mb-0">
+                <h3 class="font-bold text-gray-900">Performance Cookies</h3>
+                <p class="text-gray-600 text-sm mt-1">These cookies allow us to count visits and traffic sources.</p>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-3 text-gray-600 text-sm">Off</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="performanceCookies">
+                  <span class="slider"></span>
+                </label>
+                <span class="ml-3 text-gray-600 text-sm">On</span>
+              </div>
+            </div>
+            
+            <!-- Functional Cookies -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div class="mb-3 sm:mb-0">
+                <h3 class="font-bold text-gray-900">Functional Cookies</h3>
+                <p class="text-gray-600 text-sm mt-1">These cookies enable the website to provide enhanced functionality.</p>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-3 text-gray-600 text-sm">Off</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="functionalCookies">
+                  <span class="slider"></span>
+                </label>
+                <span class="ml-3 text-gray-600 text-sm">On</span>
+              </div>
+            </div>
+            
+            <!-- Advertising Cookies -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div class="mb-3 sm:mb-0">
+                <h3 class="font-bold text-gray-900">Advertising Cookies</h3>
+                <p class="text-gray-600 text-sm mt-1">These cookies may be set through our site by our advertising partners.</p>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-3 text-gray-600 text-sm">Off</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="advertisingCookies">
+                  <span class="slider"></span>
+                </label>
+                <span class="ml-3 text-gray-600 text-sm">On</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-10 flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+            <button id="savePreferences" class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+              Save Preferences
+            </button>
+            <button id="acceptAll" class="px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors">
+              Accept All Cookies
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center space-x-2 mb-4">
+            <img src="https://i.ibb.co/fGvbfvYZ/1000017091.png" alt="SMSADDA Logo" class="h-8 w-8 sm:h-10 sm:w-10">
+            <span class="text-lg sm:text-xl font-bold text-indigo-400">SMS<span class="text-white">ADDA</span></span>
+          </div>
+          <p class="text-gray-400 max-w-md">
+            A modern real-time chat application built with Firebase technology for seamless communication across all your devices.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Product</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="index.html" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="download.html" class="hover:text-white transition-colors">Download</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Support</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="cookie_policy.html" class="hover:text-white transition-colors">Cookie Policy</a></li>
+            <li><a href="cookie_settings.html" class="hover:text-white transition-colors">Cookie Settings</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 SMSADDA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Check if user has already set preferences
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load saved preferences from localStorage if they exist
+      const savedPreferences = localStorage.getItem('cookiePreferences');
+      if (savedPreferences) {
+        const preferences = JSON.parse(savedPreferences);
+        document.getElementById('performanceCookies').checked = preferences.performance;
+        document.getElementById('functionalCookies').checked = preferences.functional;
+        document.getElementById('advertisingCookies').checked = preferences.advertising;
+      }
+      
+      // Save preferences button
+      document.getElementById('savePreferences').addEventListener('click', function() {
+        const preferences = {
+          performance: document.getElementById('performanceCookies').checked,
+          functional: document.getElementById('functionalCookies').checked,
+          advertising: document.getElementById('advertisingCookies').checked
+        };
+        
+        localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+        localStorage.setItem('cookieConsent', 'custom');
+        
+        // Show confirmation message
+        alert('Your cookie preferences have been saved.');
+        
+        // Close the cookie consent banner if it's visible
+        const cookieBanner = document.getElementById('cookieConsent');
+        if (cookieBanner) {
+          cookieBanner.style.display = 'none';
+        }
+      });
+      
+      // Accept all cookies button
+      document.getElementById('acceptAll').addEventListener('click', function() {
+        document.getElementById('performanceCookies').checked = true;
+        document.getElementById('functionalCookies').checked = true;
+        document.getElementById('advertisingCookies').checked = true;
+        
+        const preferences = {
+          performance: true,
+          functional: true,
+          advertising: true
+        };
+        
+        localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+        localStorage.setItem('cookieConsent', 'accepted');
+        
+        // Show confirmation message
+        alert('All cookies have been accepted.');
+        
+        // Close the cookie consent banner if it's visible
+        const cookieBanner = document.getElementById('cookieConsent');
+        if (cookieBanner) {
+          cookieBanner.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

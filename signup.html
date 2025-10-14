@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - SMSADDA</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Create an account on SMSADDA - Modern Real-Time Chat App. Connect seamlessly with friends and colleagues.">
+    <meta name="keywords" content="SMSADDA, signup, register, chat app, real-time messaging">
+    <meta name="author" content="SMSADDA Team">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/fGvbfvYZ/1000017091.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    
+    <style>
+        :root {
+            --indigo: #4F46E5;
+            --indigo-light: #818cf8;
+            --gray-50: #f9fafb;
+            --gray-800: #1f2937;
+        }
+        
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            scroll-behavior: smooth;
+        }
+        
+        .max-width-container {
+            max-width: 1280px;
+        }
+        
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--indigo);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.25);
+        }
+        
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: var(--gray-800);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+            transform: translateY(-2px);
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .form-input:focus {
+            border-color: var(--indigo);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .illustration-container {
+            perspective: 1000px;
+        }
+        
+        .illustration-img {
+            transform: perspective(1000px) rotateY(5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+            animation: floating 3s ease-in-out infinite;
+            border-radius: 1rem;
+            /* Remove all borders and box shadows */
+            border: none;
+            box-shadow: none;
+        }
+        
+        .illustration-img:hover {
+            transform: perspective(1000px) rotateY(3deg) rotateX(2deg);
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: perspective(1000px) rotateY(5deg) rotateX(5deg) translateY(0px);
+            }
+            50% {
+                transform: perspective(1000px) rotateY(5deg) rotateX(5deg) translateY(-10px);
+            }
+            100% {
+                transform: perspective(1000px) rotateY(5deg) rotateX(5deg) translateY(0px);
+            }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+        }
+        
+        .hero-gradient-bg {
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .lg\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .illustration-container {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .py-12 {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+            
+            .py-16 {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .illustration-container {
+                order: 1;
+            }
+        }
+        
+        /* Completely remove border box and blend image with background */
+        .blend-image {
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            border-radius: 1rem;
+        }
+        
+        /* Remove the gradient background effect around the image */
+        .illustration-container .absolute {
+            display: none;
+        }
+        
+        /* Desktop image adjustments */
+        @media (min-width: 1025px) {
+            .illustration-img {
+                transform: translateX(20px) translateY(-10px) !important;
+                max-width: 42rem !important;
+            }
+        }
+        
+        /* Success and error message styles */
+        .message {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .error-message {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 2px solid #f3f4f6;
+            border-top: 2px solid var(--indigo);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="hero-gradient-bg">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="https://i.ibb.co/fGvbfvYZ/1000017091.png" alt="SMSADDA Logo" class="h-8 w-8 sm:h-10 sm:w-10">
+                        <span class="text-lg sm:text-xl font-bold text-indigo-600">SMS<span class="text-gray-800">ADDA</span></span>
+                    </a>
+                </div>
+                <div>
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600 font-medium text-sm lg:text-base">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signup Section -->
+    <section class="py-8 md:py-12 min-h-screen flex items-center">
+        <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Illustration (now first on mobile) -->
+                <div class="illustration-container flex items-center justify-center animate-fadeInUp">
+                    <!-- Using your own signup image from assets folder -->
+                    <!-- Responsive image sizing: larger on big screens, smaller on small screens -->
+                    <img src="assets/signup.jpg" alt="Signup Illustration" class="illustration-img blend-image w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
+                </div>
+                
+                <!-- Signup Form -->
+                <div class="animate-fadeInUp">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-10">
+                        <div class="text-center mb-8">
+                            <h1 class="text-3xl font-bold text-gray-900">Create Account</h1>
+                            <p class="mt-2 text-gray-600">Join SMSADDA today and start chatting</p>
+                        </div>
+                        
+                        <!-- Success Message -->
+                        <div id="successMessage" class="message success-message hidden">
+                            <p><i class="fas fa-check-circle mr-2"></i>Account created successfully! Please check your email for verification instructions.</p>
+                        </div>
+                        
+                        <!-- Error Message -->
+                        <div id="errorMessage" class="message error-message hidden">
+                            <p><i class="fas fa-exclamation-circle mr-2"></i><span id="errorText">Error message will appear here</span></p>
+                        </div>
+                        
+                        <form id="signupForm" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-user text-gray-400"></i>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        id="name" 
+                                        name="name" 
+                                        required
+                                        class="form-input pl-10 w-full rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                                        placeholder="John Doe">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-envelope text-gray-400"></i>
+                                    </div>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        required
+                                        class="form-input pl-10 w-full rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                                        placeholder="you@example.com">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-lock text-gray-400"></i>
+                                    </div>
+                                    <input 
+                                        type="password" 
+                                        id="password" 
+                                        name="password" 
+                                        required
+                                        class="form-input pl-10 w-full rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                                        placeholder="••••••••">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button type="button" class="text-gray-400 hover:text-gray-500 password-toggle">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-lock text-gray-400"></i>
+                                    </div>
+                                    <input 
+                                        type="password" 
+                                        id="confirmPassword" 
+                                        name="confirmPassword" 
+                                        required
+                                        class="form-input pl-10 w-full rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                                        placeholder="••••••••">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button type="button" class="text-gray-400 hover:text-gray-500 password-toggle">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input 
+                                    id="terms" 
+                                    name="terms" 
+                                    type="checkbox" 
+                                    required
+                                    class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <label for="terms" class="ml-2 block text-sm text-gray-700">
+                                    I agree to the <a href="terms_of_service.html" class="text-indigo-600 hover:text-indigo-500">Terms of Service</a> and <a href="privacy_policy.html" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <button type="submit" id="signupBtn" class="btn-primary w-full text-white py-3 px-4 rounded-lg font-semibold text-base shadow-lg">
+                                    <span id="buttonText"><i class="fas fa-user-plus mr-2"></i>Create Account</span>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="mt-6">
+                            <div class="relative">
+                                <div class="absolute inset-0 flex items-center">
+                                    <div class="w-full border-t border-gray-300"></div>
+                                </div>
+                                <div class="relative flex justify-center text-sm">
+                                    <span class="px-2 bg-white text-gray-500">Or sign up with</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <a href="#" class="btn-secondary w-full inline-flex justify-center items-center py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50">
+                                    <i class="fab fa-google text-red-500"></i>
+                                    <span class="ml-2">Google</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 text-center">
+                            <p class="text-gray-600">
+                                Already have an account? 
+                                <a href="login.html" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Firebase configuration - Replace with your actual Firebase config
+        const CONFIG = {
+            firebase: {
+                apiKey: "AIzaSyCbgzarGcQP_RsTRcV-RWIRPlDVpTfG4-M",
+                authDomain: "messenger-1fb8d.firebaseapp.com",
+                databaseURL: "https://messenger-1fb8d-default-rtdb.firebaseio.com",
+                projectId: "messenger-1fb8d",
+                storageBucket: "messenger-1fb8d.firebasestorage.app",
+                messagingSenderId: "928708913816",
+                appId: "1:928708913816:web:c785b3a493642529a6beed"
+            }
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(CONFIG.firebase);
+        const auth = firebase.auth();
+        
+        // DOM Elements
+        const signupForm = document.getElementById('signupForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const termsCheckbox = document.getElementById('terms');
+        const signupBtn = document.getElementById('signupBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const buttonText = document.getElementById('buttonText');
+        const passwordToggles = document.querySelectorAll('.password-toggle');
+        const googleSignupBtn = document.querySelector('.fab.fa-google').closest('a'); // Google signup button
+        
+        // Show message function
+        function showMessage(type, message) {
+            // Hide both messages first
+            successMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            
+            if (type === 'success') {
+                successMessage.classList.remove('hidden');
+            } else if (type === 'error') {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+            }
+        }
+        
+        // Set loading state
+        function setLoading(loading) {
+            if (loading) {
+                buttonText.innerHTML = '<span class="spinner"></span>Creating Account...';
+                signupBtn.disabled = true;
+            } else {
+                buttonText.innerHTML = '<i class="fas fa-user-plus mr-2"></i>Create Account';
+                signupBtn.disabled = false;
+            }
+        }
+        
+        // Google Sign-Up function
+        async function signUpWithGoogle() {
+            try {
+                // Create Google provider
+                const provider = new firebase.auth.GoogleAuthProvider();
+                
+                // Sign up with Google popup
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                
+                // Check if this is a new user
+                if (result.additionalUserInfo.isNewUser) {
+                    // This is a new user, redirect to main app
+                    window.location.href = 'sms_adda.html';
+                } else {
+                    // Existing user, redirect to main app
+                    window.location.href = 'sms_adda.html';
+                }
+            } catch (error) {
+                console.error('Google sign-up error:', error);
+                let errorMessage = '';
+                
+                switch (error.code) {
+                    case 'auth/popup-closed-by-user':
+                        errorMessage = 'Google sign-up was cancelled.';
+                        break;
+                    case 'auth/network-request-failed':
+                        errorMessage = 'Network error. Please check your connection.';
+                        break;
+                    case 'auth/account-exists-with-different-credential':
+                        errorMessage = 'An account already exists with this email. Please sign in using your email and password.';
+                        break;
+                    default:
+                        errorMessage = 'Failed to sign up with Google. Please try again.';
+                }
+                
+                showMessage('error', errorMessage);
+            }
+        }
+        
+        // Form submission
+        signupForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            
+            // Validate inputs
+            if (!name || !email || !password || !confirmPassword) {
+                showMessage('error', 'Please fill in all fields.');
+                return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage('error', 'Please enter a valid email address.');
+                return;
+            }
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                showMessage('error', 'Passwords do not match!');
+                return;
+            }
+            
+            // Check password strength (at least 6 characters)
+            if (password.length < 6) {
+                showMessage('error', 'Password should be at least 6 characters long.');
+                return;
+            }
+            
+            // Check if terms are accepted
+            if (!termsCheckbox.checked) {
+                showMessage('error', 'Please agree to the Terms of Service and Privacy Policy.');
+                return;
+            }
+            
+            // Set loading state
+            setLoading(true);
+            
+            try {
+                // Create user with email and password
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Update user profile with display name
+                await user.updateProfile({
+                    displayName: name
+                });
+                
+                // Send email verification
+                await user.sendEmailVerification();
+                
+                // Show success message
+                showMessage('success', 'Account created successfully! Please check your email for verification instructions.');
+                
+                // Clear form
+                signupForm.reset();
+                
+                // Redirect to email verification page after a short delay
+                setTimeout(() => {
+                    window.location.href = 'email_verification.html';
+                }, 3000);
+            } catch (error) {
+                // Handle errors
+                let errorMessage = '';
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'An account with this email already exists.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Invalid email address.';
+                        break;
+                    case 'auth/operation-not-allowed':
+                        errorMessage = 'Email/password accounts are not enabled.';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'Password is too weak. Please use a stronger password.';
+                        break;
+                    default:
+                        errorMessage = 'Failed to create account. Please try again.';
+                }
+                showMessage('error', errorMessage);
+            } finally {
+                // Reset loading state
+                setLoading(false);
+            }
+        });
+        
+        // Google signup button click handler
+        googleSignupBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            signUpWithGoogle();
+        });
+        
+        // Password visibility toggle
+        passwordToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const passwordInput = this.closest('.relative').querySelector('input');
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+        });
+        
+        // Check auth state
+        auth.onAuthStateChanged(user => {
+            if (user && user.emailVerified) {
+                // User is signed in and email is verified, redirect to main app
+                window.location.href = 'sms_adda.html';
+            }
+        });
+    </script>
+    
+    <!-- Common JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

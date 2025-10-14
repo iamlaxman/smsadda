@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download SMSADDA - Modern Chat Application</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Download SMSADDA - A modern real-time chat application. Available for Android, iOS, and web.">
+  <meta name="keywords" content="SMSADDA, download, chat app, real-time messaging, Android, iOS">
+  <meta name="author" content="SMSADDA Team">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.ibb.co/fGvbfvYZ/1000017091.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  
+  <style>
+    :root {
+      --indigo: #4F46E5;
+      --indigo-light: #818cf8;
+      --gray-50: #f9fafb;
+      --gray-800: #1f2937;
+    }
+    
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      scroll-behavior: smooth;
+    }
+    
+    .max-width-container {
+      max-width: 1280px;
+    }
+    
+    .rounded-2xl {
+      border-radius: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--indigo);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #4338ca;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.25);
+    }
+    
+    .btn-secondary {
+      background-color: #f3f4f6;
+      color: var(--gray-800);
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #e5e7eb;
+      transform: translateY(-2px);
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    }
+    
+    .hero-gradient-bg {
+      background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+    }
+    
+    /* Animation for feature cards */
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Download button animations */
+    .download-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .download-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .download-btn:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(50, 50);
+        opacity: 0;
+      }
+    }
+    
+    /* FAQ Animations */
+    .animate-slideDown {
+      animation: slideDown 0.3s ease forwards;
+    }
+    
+    .animate-slideUp {
+      animation: slideUp 0.3s ease forwards;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        max-height: 500px;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 1;
+        max-height: 500px;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-10px);
+      }
+    }
+    
+    /* Rotate animation for FAQ icons */
+    .rotate-180 {
+      transform: rotate(180deg);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .py-20 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      
+      .text-5xl {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="hero-gradient-bg">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <a href="index.html" class="flex items-center space-x-2">
+            <img src="https://i.ibb.co/fGvbfvYZ/1000017091.png" alt="SMSADDA Logo" class="h-8 w-8 sm:h-10 sm:w-10">
+            <span class="text-lg sm:text-xl font-bold text-indigo-600">SMS<span class="text-gray-800">ADDA</span></span>
+          </a>
+        </div>
+        <div>
+          <a href="index.html" class="text-gray-600 hover:text-indigo-600 font-medium text-sm lg:text-base">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-20">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 animate__animated animate__fadeInDown">
+          Download SMSADDA
+        </h1>
+        <p class="text-xl text-gray-600 mb-10 animate__animated animate__fadeInUp">
+          Experience seamless communication across all your devices. Available for Android, iOS, and web.
+        </p>
+        
+        <!-- Download Options -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 animate__animated animate__fadeIn">
+          <!-- Android App -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 feature-card">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-android text-green-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Android App</h3>
+            <p class="text-gray-600 mb-4">Native mobile experience with push notifications</p>
+            <a href="assets/smsadda.apk" download class="download-btn block w-full bg-green-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-green-700 transition-all duration-300">
+              <i class="fas fa-download mr-2"></i>Download APK
+            </a>
+          </div>
+          
+          <!-- iOS App -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 feature-card">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-apple text-blue-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">iOS App</h3>
+            <p class="text-gray-600 mb-4">Coming soon to the App Store</p>
+            <button class="download-btn block w-full bg-gray-300 text-gray-500 font-semibold py-3 px-4 rounded-lg cursor-not-allowed" disabled>
+              <i class="fas fa-clock mr-2"></i>Coming Soon
+            </button>
+          </div>
+          
+          <!-- Web Version -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 feature-card">
+            <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-desktop text-indigo-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Web Version</h3>
+            <p class="text-gray-600 mb-4">Use directly in your browser on any device</p>
+            <a href="sms_adda.html" target="_blank" class="download-btn block w-full bg-indigo-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-indigo-700 transition-all duration-300">
+              <i class="fas fa-external-link-alt mr-2"></i>Open Web App
+            </a>
+          </div>
+        </div>
+        
+        <!-- System Requirements -->
+        <div class="bg-gray-50 rounded-2xl p-8 max-w-3xl mx-auto mb-16">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">System Requirements</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+                <i class="fas fa-mobile-alt text-indigo-600 mr-2"></i>Mobile
+              </h3>
+              <ul class="text-gray-600 space-y-2 text-left">
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span>Android 7.0 or higher</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span>iOS 12.0 or higher (coming soon)</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span>At least 50MB of free storage</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+                <i class="fas fa-desktop text-indigo-600 mr-2"></i>Web
+              </h3>
+              <ul class="text-gray-600 space-y-2 text-left">
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span>Chrome, Firefox, Safari, or Edge</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span>JavaScript enabled</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span>Stable internet connection</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Features -->
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-gray-900 mb-12">Why Choose SMSADDA?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-6 bg-white rounded-2xl shadow-sm feature-card">
+              <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bolt text-indigo-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Lightning Fast</h3>
+              <p class="text-gray-600">Real-time messaging with zero latency</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-2xl shadow-sm feature-card">
+              <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-shield-alt text-green-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Secure & Private</h3>
+              <p class="text-gray-600">End-to-end encryption for all messages</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-2xl shadow-sm feature-card">
+              <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-sync text-purple-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Cross-Device Sync</h3>
+              <p class="text-gray-600">Seamless experience across all your devices</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          <div class="bg-gray-50 p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+            <button class="flex justify-between items-center w-full text-left">
+              <h3 class="font-bold text-gray-900 text-lg mb-0">Is SMSADDA free to download and use?</h3>
+              <i class="fas fa-chevron-down text-indigo-600 text-base transform transition-transform duration-300"></i>
+            </button>
+            <p class="mt-4 text-gray-600 hidden animate-slideDown">
+              Yes, SMSADDA is completely free to download and use. We offer optional premium features for users who want additional functionality, but the core messaging experience is free for everyone.
+            </p>
+          </div>
+          
+          <div class="bg-gray-50 p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+            <button class="flex justify-between items-center w-full text-left">
+              <h3 class="font-bold text-gray-900 text-lg mb-0">How do I install the Android app?</h3>
+              <i class="fas fa-chevron-down text-indigo-600 text-base transform transition-transform duration-300"></i>
+            </button>
+            <p class="mt-4 text-gray-600 hidden animate-slideDown">
+              Download the APK file from this page and open it on your Android device. You may need to enable "Install from unknown sources" in your device settings if it's your first time installing an APK.
+            </p>
+          </div>
+          
+          <div class="bg-gray-50 p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+            <button class="flex justify-between items-center w-full text-left">
+              <h3 class="font-bold text-gray-900 text-lg mb-0">Can I use SMSADDA on multiple devices?</h3>
+              <i class="fas fa-chevron-down text-indigo-600 text-base transform transition-transform duration-300"></i>
+            </button>
+            <p class="mt-4 text-gray-600 hidden animate-slideDown">
+              Absolutely! SMSADDA supports seamless synchronization across all your devices. Sign in with the same account on your phone, tablet, and computer, and your messages will be instantly available on all devices.
+            </p>
+          </div>
+          
+          <div class="bg-gray-50 p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+            <button class="flex justify-between items-center w-full text-left">
+              <h3 class="font-bold text-gray-900 text-lg mb-0">Is my data secure with SMSADDA?</h3>
+              <i class="fas fa-chevron-down text-indigo-600 text-base transform transition-transform duration-300"></i>
+            </button>
+            <p class="mt-4 text-gray-600 hidden animate-slideDown">
+              Security is our top priority. SMSADDA uses end-to-end encryption for all messages, ensuring that only you and the recipient can read your conversations. We never store your messages on our servers, and all data is encrypted both in transit and at rest.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 gradient-bg">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Get Started?</h2>
+        <p class="text-xl text-indigo-100 mb-10">Join thousands of users enjoying seamless communication with SMSADDA.</p>
+        <a href="signup.html" class="btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg inline-flex items-center hover:shadow-xl">
+          <i class="fas fa-user-plus mr-2"></i>Create Free Account
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center space-x-2 mb-4">
+            <img src="https://i.ibb.co/fGvbfvYZ/1000017091.png" alt="SMSADDA Logo" class="h-8 w-8 sm:h-10 sm:w-10">
+            <span class="text-lg sm:text-xl font-bold text-indigo-400">SMS<span class="text-white">ADDA</span></span>
+          </div>
+          <p class="text-gray-400 max-w-md">
+            A modern real-time chat application built with Firebase technology for seamless communication across all your devices.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Product</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="index.html" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="download.html" class="hover:text-white transition-colors">Download</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Support</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 SMSADDA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // FAQ Accordion
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqButtons = document.querySelectorAll('.bg-gray-50 button');
+      
+      faqButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const content = button.nextElementSibling;
+          const icon = button.querySelector('i');
+          
+          if (content.classList.contains('hidden')) {
+            // Opening animation
+            content.classList.remove('hidden');
+            content.classList.remove('animate-slideUp');
+            content.classList.add('animate-slideDown');
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+            icon.classList.add('rotate-180');
+          } else {
+            // Closing animation
+            content.classList.remove('animate-slideDown');
+            content.classList.add('animate-slideUp');
+            
+            // After animation completes, hide the content
+            setTimeout(() => {
+              if (content.classList.contains('animate-slideUp')) {
+                content.classList.add('hidden');
+                content.classList.remove('animate-slideUp');
+              }
+            }, 300);
+            
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.remove('rotate-180');
+            icon.classList.add('fa-chevron-down');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

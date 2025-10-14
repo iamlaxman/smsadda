@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SMSADDA</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Login to SMSADDA - Modern Real-Time Chat App. Connect seamlessly with friends and colleagues.">
+    <meta name="keywords" content="SMSADDA, login, chat app, real-time messaging">
+    <meta name="author" content="SMSADDA Team">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/fGvbfvYZ/1000017091.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    
+    <style>
+        /* Additional page-specific styles */
+        .illustration-container {
+            perspective: 1000px;
+        }
+        
+        .illustration-img {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+            animation: floating 3s ease-in-out infinite;
+            border-radius: 1rem;
+            /* Remove all borders and box shadows */
+            border: none;
+            box-shadow: none;
+        }
+        
+        .illustration-img:hover {
+            transform: perspective(1000px) rotateY(-3deg) rotateX(2deg);
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(0px);
+            }
+            50% {
+                transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(-10px);
+            }
+            100% {
+                transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(0px);
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .lg\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .illustration-container {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .py-12 {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+            
+            .py-16 {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .illustration-container {
+                order: 1;
+            }
+        }
+        
+        /* Completely remove border box and blend image with background */
+        .blend-image {
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            border-radius: 1rem;
+        }
+        
+        /* Remove the gradient background effect around the image */
+        .illustration-container .absolute {
+            display: none;
+        }
+    </style>
+</head>
+<body class="hero-gradient-bg">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="https://i.ibb.co/fGvbfvYZ/1000017091.png" alt="SMSADDA Logo" class="h-8 w-8 sm:h-10 sm:w-10">
+                        <span class="text-lg sm:text-xl font-bold text-indigo-600">SMS<span class="text-gray-800">ADDA</span></span>
+                    </a>
+                </div>
+                <div>
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600 font-medium text-sm lg:text-base">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="py-8 md:py-12 min-h-screen flex items-center">
+        <div class="max-width-container mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Illustration (now first on mobile) -->
+                <div class="illustration-container flex items-center justify-center animate-fadeInUp">
+                    <!-- Using your own login image from assets folder -->
+                    <!-- Responsive image sizing: larger on big screens, smaller on small screens -->
+                    <img src="https://i.ibb.co/DDWDsZ0z/20251013-213541-0000.png" alt="Login Illustration" class="illustration-img blend-image w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
+                </div>
+                
+                <!-- Login Form -->
+                <div class="animate-fadeInUp">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-10">
+                        <div class="text-center mb-8">
+                            <h1 class="text-3xl font-bold text-gray-900">Welcome Back</h1>
+                            <p class="mt-2 text-gray-600">Sign in to your account to continue</p>
+                        </div>
+                        
+                        <!-- Error Message -->
+                        <div id="errorMessage" class="hidden mb-4 p-3 bg-red-50 text-red-700 rounded-lg">
+                            <i class="fas fa-exclamation-circle mr-2"></i><span id="errorText"></span>
+                        </div>
+                        
+                        <form id="loginForm" class="space-y-6">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-envelope text-gray-400"></i>
+                                    </div>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        required
+                                        class="form-input pl-10 w-full rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                                        placeholder="you@example.com">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex items-center justify-between mb-1">
+                                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                    <a href="forgot_password.html" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-lock text-gray-400"></i>
+                                    </div>
+                                    <input 
+                                        type="password" 
+                                        id="password" 
+                                        name="password" 
+                                        required
+                                        class="form-input pl-10 w-full rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                                        placeholder="••••••••">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button type="button" class="text-gray-400 hover:text-gray-500 password-toggle">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input 
+                                    id="remember-me" 
+                                    name="remember-me" 
+                                    type="checkbox" 
+                                    class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                            </div>
+                            
+                            <div>
+                                <button type="submit" id="loginBtn" class="btn-primary w-full text-white py-3 px-4 rounded-lg font-semibold text-base shadow-lg">
+                                    <span id="buttonText"><i class="fas fa-sign-in-alt mr-2"></i>Sign In</span>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="mt-6">
+                            <div class="relative">
+                                <div class="absolute inset-0 flex items-center">
+                                    <div class="w-full border-t border-gray-300"></div>
+                                </div>
+                                <div class="relative flex justify-center text-sm">
+                                    <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <a href="#" class="btn-secondary w-full inline-flex justify-center items-center py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50">
+                                    <i class="fab fa-google text-red-500"></i>
+                                    <span class="ml-2">Google</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 text-center">
+                            <p class="text-gray-600">
+                                Don't have an account? 
+                                <a href="signup.html" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Firebase configuration - Replace with your actual Firebase config
+        const CONFIG = {
+            firebase: {
+                apiKey: "AIzaSyCbgzarGcQP_RsTRcV-RWIRPlDVpTfG4-M",
+                authDomain: "messenger-1fb8d.firebaseapp.com",
+                databaseURL: "https://messenger-1fb8d-default-rtdb.firebaseio.com",
+                projectId: "messenger-1fb8d",
+                storageBucket: "messenger-1fb8d.firebasestorage.app",
+                messagingSenderId: "928708913816",
+                appId: "1:928708913816:web:c785b3a493642529a6beed"
+            }
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(CONFIG.firebase);
+        const auth = firebase.auth();
+        
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const buttonText = document.getElementById('buttonText');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const passwordToggle = document.querySelector('.password-toggle');
+        const googleLoginBtn = document.querySelector('.fab.fa-google').closest('a'); // Google login button
+        
+        // Show error message
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+        
+        // Hide error message
+        function hideError() {
+            errorMessage.classList.add('hidden');
+        }
+        
+        // Set loading state
+        function setLoading(loading) {
+            if (loading) {
+                buttonText.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Signing In...';
+                loginBtn.disabled = true;
+            } else {
+                buttonText.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i>Sign In';
+                loginBtn.disabled = false;
+            }
+        }
+        
+        // Google Sign-In function
+        async function signInWithGoogle() {
+            try {
+                // Create Google provider
+                const provider = new firebase.auth.GoogleAuthProvider();
+                
+                // Sign in with Google popup
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                
+                // Redirect to main app
+                window.location.href = 'sms_adda.html';
+            } catch (error) {
+                console.error('Google sign-in error:', error);
+                let errorMessage = '';
+                
+                switch (error.code) {
+                    case 'auth/popup-closed-by-user':
+                        errorMessage = 'Google sign-in was cancelled.';
+                        break;
+                    case 'auth/network-request-failed':
+                        errorMessage = 'Network error. Please check your connection.';
+                        break;
+                    case 'auth/account-exists-with-different-credential':
+                        errorMessage = 'An account already exists with this email. Please sign in using your email and password.';
+                        break;
+                    default:
+                        errorMessage = 'Failed to sign in with Google. Please try again.';
+                }
+                
+                showError(errorMessage);
+            }
+        }
+        
+        // Form submission
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Hide any previous error messages
+            hideError();
+            
+            // Get form values
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            
+            // Validate inputs
+            if (!email || !password) {
+                showError('Please fill in all fields.');
+                return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address.');
+                return;
+            }
+            
+            // Set loading state
+            setLoading(true);
+            
+            try {
+                // Sign in with email and password
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Check if email is verified
+                if (!user.emailVerified) {
+                    // Sign out the user
+                    await auth.signOut();
+                    showError('Please verify your email address before signing in.');
+                    return;
+                }
+                
+                // Redirect to main app
+                window.location.href = 'sms_adda.html';
+            } catch (error) {
+                // Handle errors
+                let errorMessage = '';
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'No user found with this email.';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'Incorrect password.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Invalid email address.';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = 'This account has been disabled.';
+                        break;
+                    default:
+                        errorMessage = 'Failed to sign in. Please try again.';
+                }
+                showError(errorMessage);
+            } finally {
+                // Reset loading state
+                setLoading(false);
+            }
+        });
+        
+        // Google login button click handler
+        googleLoginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            signInWithGoogle();
+        });
+        
+        // Password visibility toggle
+        passwordToggle.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+        
+        // Check auth state
+        auth.onAuthStateChanged(user => {
+            if (user && user.emailVerified) {
+                // User is signed in and email is verified, redirect to main app
+                window.location.href = 'sms_adda.html';
+            }
+        });
+    </script>
+    
+    <!-- Common JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>
